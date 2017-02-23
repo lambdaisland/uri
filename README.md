@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lambdaisland/uri.svg?branch=master)](https://travis-ci.org/lambdaisland/uri)
+
 # lambdaisland/uri
 
 A pure Clojure/ClojureScript URI library.
