@@ -21,6 +21,18 @@ The second is that doing an equality check on a `java.net.URI` instance
 [causes a DNS lookup](http://brian.pontarelli.com/2006/12/05/mr-gosling-why-did-you-make-url-equals-suck/).
 This means URIs are not value objects.
 
+## Installation
+
+To install, add the following dependency to your project or build file:
+
+``` clojure
+[lambdaisland/uri "1.0.0"]
+```
+
+## API docs
+
+[lambdaisland/uri API docs](https://lambdaisland.github.io/uri/)
+
 ## Usage
 
 ``` clojure
