@@ -1,5 +1,5 @@
 (defproject lambdaisland/uri "1.0.0"
-  :description "RFC compliant URI library"
+  :description "A pure Clojure/ClojureScript, RFC compliant URI library"
   :url "http://github.com/lambdaisland/uri"
   :license {:name "Mozilla Public License 2.0"
             :url "https://www.mozilla.org/en-US/MPL/2.0/"}
