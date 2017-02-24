@@ -1,5 +1,6 @@
 (ns lambdaisland.uri
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  #?(:clj (:import clojure.lang.IFn)))
 
 
 (def uri-regex #?(:clj #"\A(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)?(\?([^#]*))?(#(.*))?\z"
@@ -8,8 +9,8 @@
                         :cljs #"^(([^:]*)(:(.*))?@)?([^:]*)(:(\d*))?$"))
 
 (defrecord URI [scheme user password host port path query fragment]
-  clojure.lang.IFn
-  (invoke [this kw]
+  IFn
+  (#?(:clj invoke :cljs -invoke) [this kw]
     (get this kw))
   Object
   (toString [this]

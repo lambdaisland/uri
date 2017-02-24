@@ -83,3 +83,27 @@
     (is (= (uri/join "http://x/y/z" "/a/b/c") (uri/parse "http://x/a/b/c")))
     #?(:clj
        (is (= (uri/join (java.net.URI. "http://x/y/z") "/a/b/c") (uri/parse "http://x/a/b/c"))))))
+
+(deftest lambdaisland-uri-URI
+  (let [example "http://usr:pwd@example.com:8080/path?query=value#fragment"
+        parsed (uri/uri example)]
+    (testing "it allows keyword based access"
+      (is (= (:scheme parsed) "http"))
+      (is (= (:user parsed)) "usr")
+      (is (= (:password parsed)) "pwd")
+      (is (= (:host parsed)) "example.com")
+      (is (= (:port parsed)) "8080")
+      (is (= (:path parsed)) "/path")
+      (is (= (:query parsed)) "query=value")
+      (is (= (:fragment parsed)) "fragment"))
+    (testing "it allows map-style access"
+      (is (= (parsed :scheme) "http"))
+      (is (= (parsed :user)) "usr")
+      (is (= (parsed :password)) "pwd")
+      (is (= (parsed :host)) "example.com")
+      (is (= (parsed :port)) "8080")
+      (is (= (parsed :path)) "/path")
+      (is (= (parsed :query)) "query=value")
+      (is (= (parsed :fragment)) "fragment"))
+    (testing "it converts correctly to string"
+      (is (= (str parsed) example)))))
