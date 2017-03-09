@@ -13,15 +13,11 @@ Key features
 ## Rationale
 
 There are a number of Clojure libraries for working with URI/URLs (see
-[Similar projects](#similar_projects) below). They all rely on `java.net.URI`,
-which has two major shortcomings.
+[Similar projects](#similar_projects) below). They all rely to some degree on
+`java.net.URI` or `java.net.URL`. This lib provides a pure-Clojure/ClojureScript
+alternative.
 
-The first is that relative URIs are not first class. A `java.net.URI` instance
-is always fully qualified. This is needlessly restrictive.
-
-The second is that doing an equality check on a `java.net.URI` instance
-[causes a DNS lookup](http://brian.pontarelli.com/2006/12/05/mr-gosling-why-did-you-make-url-equals-suck/).
-This means URIs are not value objects.
+See the [announcement blog post](https://lambdaisland.com/blog/27-02-2017-announcing-lambdaisland-uri)
 
 ## Installation
 
@@ -88,6 +84,10 @@ To install, add the following dependency to your project or build file:
 
 ## Similar projects
 
+* [exploding-fish](https://github.com/wtetzner/exploding-fish)
+  I was not aware at the time of creating lambdaisland/uri of exploding fish. It
+  is the most mature pure-Clojure URI lib out there. It does not provide
+  ClojureScript support.
 * [cemerick/url](https://github.com/cemerick/url)
   Cross platform (cljx), Clojure version uses `java.net.URI`.
 * [michaelklishin/urly](https://github.com/michaelklishin/urly)
