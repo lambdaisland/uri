@@ -18,4 +18,6 @@
                                    :output-dir "target"
                                    :main lambdaisland.test-runner
                                    :optimizations :none}}]}
-  :aliases {"test-all" ["do" "test" ["doo" "phantom" "test" "once"]]})
+  :aliases {"test-all" ["do"
+                        ["test"]
+                        ["doo" "phantom" "test" "once"]]})
