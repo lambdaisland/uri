@@ -17,5 +17,5 @@ All notable changes to this project will be documented in this file. This change
 ### Added
 - Initial release, public vars: `uri`, `join`, `coerce`, `parse`, `edn-readers`
 
-[Unreleased]: https://github.com/lambdaisland/uri/compare/1.1.0...HEAD
-[1.1.0]: https://github.com/lambdaisland/uri/compare/1.0.0...1.1.0
+[Unreleased]: https://github.com/lambdaisland/uri/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/lambdaisland/uri/compare/v1.0.0...v1.1.0
