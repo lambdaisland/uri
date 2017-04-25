@@ -1,12 +1,14 @@
-(defproject lambdaisland/uri "1.0.0"
+(defproject lambdaisland/uri "1.1.0"
   :description "A pure Clojure/ClojureScript, RFC compliant URI library"
   :url "http://github.com/lambdaisland/uri"
   :license {:name "Mozilla Public License 2.0"
             :url "https://www.mozilla.org/en-US/MPL/2.0/"}
-  :dependencies [[org.clojure/clojure "1.8.0"]]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.clojure/data.json "0.2.6"]]
   :plugins [[lein-codox "0.10.3"]
             [lein-doo "0.1.7"]
-            [lein-cljsbuild "1.1.5"]]
+            [lein-cljsbuild "1.1.5"]
+            [lein-mutate "0.1.0"]]
   :codox {:output-path "gh-pages"}
   :doo {:build "test"
         :alias {:default [:phantom]}}

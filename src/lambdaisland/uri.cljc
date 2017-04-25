@@ -117,6 +117,19 @@
   (reduce join* (map uri uris)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Predicates
+
+(defn relative?
+  "Is the URI relative? Returns true if the URI does not have a scheme (protocol)."
+  [uri]
+  (nil? (:scheme uri)))
+
+(def
+  ^{:doc
+    "Is the URI absolute? Returns true if the URI has a scheme (protocol), and hence also an origin."}
+  absolute? (complement relative?))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; EDN
 
 (def edn-tag 'lambdaisland/uri)

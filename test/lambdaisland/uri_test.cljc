@@ -107,3 +107,14 @@
       (is (= (parsed :fragment)) "fragment"))
     (testing "it converts correctly to string"
       (is (= (str parsed) example)))))
+
+(deftest lambdaisland-uri-relative?
+  (are [x] (uri/relative? (uri/parse x))
+    "//example.com"
+    "/some/path"
+    "?only=a-query"
+    "#only-a-fragment"
+    "//example.com:8080/foo/bar?baz#baq")
+  (are [x] (uri/absolute? (uri/parse x))
+    "http://example.com"
+    "https://example.com:8080/foo/bar?baz#baq"))

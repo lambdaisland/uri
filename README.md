@@ -24,7 +24,7 @@ See the [announcement blog post](https://lambdaisland.com/blog/27-02-2017-announ
 To install, add the following dependency to your project or build file:
 
 ``` clojure
-[lambdaisland/uri "1.0.0"]
+[lambdaisland/uri "1.1.0"]
 ```
 
 ## API docs
