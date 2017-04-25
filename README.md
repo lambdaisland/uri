@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/lambdaisland/uri.svg?branch=master)](https://travis-ci.org/lambdaisland/uri)
+[![Clojars Project](https://img.shields.io/clojars/v/lambdaisland/uri.svg)](https://clojars.org/lambdaisland/uri)
 
 # lambdaisland/uri
 
