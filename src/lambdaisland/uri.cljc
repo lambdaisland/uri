@@ -67,6 +67,11 @@
 (defn- absolute-path? [path]
   (= (first path) \/))
 
+(defn absolute?
+  "true if the given URI has an absolute path"
+  [uri]
+  (absolute-path? (:path uri)))
+
 (defn- remove-dot-segments
   "As per RFC 3986 section 5.2.4"
   [path]
