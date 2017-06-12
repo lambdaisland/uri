@@ -1,13 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
-## [Unreleased]
-(this space deliberately left blank)
-
+<!-- (this space deliberately left blank) -->
 <!-- ### Added -->
 <!-- ### Changed -->
 <!-- ### Removed -->
 <!-- ### Fixed -->
+
+
+## [Unreleased]
+### Added
+- `lambdaisland.uri.normalize/normalize`, for normalizing URI instances.
 
 ## [1.1.0] - 2017-04-25
 ### Added
