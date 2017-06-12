@@ -1,8 +1,7 @@
 (ns lambdaisland.uri.normalize-test
   (:require [lambdaisland.uri :as uri]
             [lambdaisland.uri.normalize :as n]
-            #?(:clj [clojure.test :refer [deftest testing is are]]
-               :cljs [cljs.test :refer [deftest testing is are]])))
+            [clojure.test :refer [deftest testing is are]]))
 
 
 (deftest normalize-test
