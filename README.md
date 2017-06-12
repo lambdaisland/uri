@@ -98,7 +98,9 @@ To install, add the following dependency to your project or build file:
 
 ## Further reading
 
-This library implements the algorithm specified in Section 5.2 of [RFC3986](https://www.ietf.org/rfc/rfc3986.txt), "Uniform Resource Identifier (URI): Generic Syntax".
+[RFC3986 Uniform Resource Identifier (URI): Generic Syntax](https://www.ietf.org/rfc/rfc3986.txt)
+
+This library implements the algorithm specified in [Section 5.2](https://tools.ietf.org/html/rfc3986#section-5.2) of that RFC.
 
 It has been tested against [this list of test cases compiled by the W3C](https://www.w3.org/2004/04/uri-rel-test.html).
 
