@@ -1,14 +1,11 @@
 (ns lambdaisland.uri.normalize
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [lambdaisland.uri.platform :refer [byte-seq->string
+                                               string->byte-seq
+                                               byte->hex hex->byte
+                                               char-code-at]]))
 
-(def
-  ^{:dynamic true
-    :doc "The encoding used by `percent-encode` and `percent-decode`.
-          Unfortunately the RFC does not specify what this should be beyond
-          \"generally ... UTF-8 (or some other superset of the US-ASCII
-          character encoding)\""}
-  *character-encoding* "UTF8")
-
+;; TODO we might be better off having these just be sets
 (def
   ^{:doc
     "Which characters should be percent-encoded depends on which section
@@ -42,6 +39,19 @@
      :query      (re-pattern (str "[^" query "]"))
      :fragment   (re-pattern (str "[^" fragment "]"))}))
 
+(defn char-seq
+  "Return a seq of the characters in a string, making sure not to split up
+  UCS-2 (or is it UTF-16?) surrogate pairs. Because JavaScript. And Java."
+  ([str]
+   (char-seq str 0))
+  ([str offset]
+   (if (>= offset (count str))
+     ()
+     (let [code (char-code-at str offset)
+           width (if (<= 0xD800 code 0xDBFF) 2 1)] ; "high surrogate"
+       (cons (subs str offset (+ offset width))
+             (char-seq str (+ offset width)))))))
+
 (defn percent-encode
   "Convert characters in their percent encoded form. e.g.
    `(percent_encode \"a\") #_=> \"%61\"`. When given a second argument, then
@@ -51,11 +61,15 @@
    Characters are encoded as UTF-8. To use a different encoding. re-bind
    `*character-encoding*`"
   ([component]
-   (->> (.getBytes component *character-encoding*)
-        (map (comp str/upper-case (partial format "%%%x")))
+   (->> (string->byte-seq component)
+        (map #(str "%" (byte->hex %)))
         (apply str)))
   ([component type]
-   (str/replace component (get character-classes type) percent-encode)))
+   (let [char-class (get character-classes type)
+         encode-char #(cond-> % (re-find char-class %) percent-encode)]
+     (->> (char-seq component)
+          (map encode-char)
+          (apply str)))))
 
 (defn percent-decode
   "The inverse of `percent-encode`, convert any %XX sequences in a string to
@@ -64,12 +78,10 @@
   [s]
   (str/replace s #"(%[0-9A-Fa-f]{2})+"
                (fn [[x _]]
-                 (String.
+                 (byte-seq->string
                   (->> (str/split x #"%")
                        (drop 1)
-                       (map #(Integer/parseInt % 16))
-                       byte-array)
-                  *character-encoding*))))
+                       (map hex->byte))))))
 
 (defn normalize-path [path]
   (when-not (nil? path)

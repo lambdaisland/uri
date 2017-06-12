@@ -26,7 +26,8 @@
     :alpha "abcAbc" "abcAbc"
     :alpha "abc123" "abc%31%32%33"
     :path  "abc/123" "abc/123"
-    :path  "abc/123:/#" "abc/123:/%23"))
+    :path  "abc/123:/#" "abc/123:/%23"
+    :path  "𝍖" "%F0%9D%8D%96"))
 
 (deftest percent-decode-test
   (are [in out] (= (n/percent-decode in) out)
