@@ -1,28 +1,5 @@
 #!/bin/bash
 
-if ! git diff-index --quiet --cached HEAD ; then
-    echo "Git index isn't clean. Make sure you have no staged changes. (try 'git reset .')"
-    exit
-fi
+export AUTODOC_CMD="lein with-profile +codox codox"
 
-echo "Generating docs"
-lein codox
-
-echo "Creating new commit"
-git --work-tree=gh-pages add -A
-
-TREE=`git write-tree`
-PARENT=`git rev-parse origin/gh-pages`
-
-if [ "gh-pages" == $PARENT ]; then # first commit
-    COMMIT=`git commit-tree $TREE -m 'Updating docs'`
-else
-    COMMIT=`git commit-tree -p $PARENT $TREE -m 'Updating docs'`
-fi
-
-echo "Commit $COMMIT"
-echo "Pushing to gh-pages"
-git reset .
-git push origin $COMMIT:refs/heads/gh-pages
-git fetch
-git log -1 --stat origin/gh-pages
+\curl -sSL https://raw.githubusercontent.com/plexus/autodoc/master/autodoc.sh | bash

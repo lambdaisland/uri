@@ -4,13 +4,10 @@
   :license {:name "Mozilla Public License 2.0"
             :url "https://www.mozilla.org/en-US/MPL/2.0/"}
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/data.json "0.2.6"]
-                 ]
-  :plugins [[lein-codox "0.10.3"]
-            [lein-doo "0.1.7"]
+                 [org.clojure/data.json "0.2.6"]]
+  :plugins [[lein-doo "0.1.7"]
             [lein-cljsbuild "1.1.5"]
             [lein-mutate "0.1.0"]]
-  :codox {:output-path "gh-pages"}
   :doo {:build "test"
         :alias {:default [:phantom]}}
   :cljsbuild {:builds [{:id "test"
@@ -26,4 +23,10 @@
              {:dependencies [[org.clojure/clojurescript "1.9.562"]
                              [com.cemerick/piggieback "0.2.1"]
                              [lein-doo "0.1.7"]
-                             ]}})
+                             ]}
+             :codox {:dependencies [[codox-theme-rdash "0.1.2"]]
+                     :plugins [[lein-codox "0.10.3"]]
+                     :codox {:output-path "gh-pages"
+                             :project {:name "lambdaisland-uri"}
+                             :metadata {:doc/format :markdown} ;; docstring format
+                             :themes [:rdash]}}})
