@@ -135,7 +135,7 @@
 (def edn-tag 'lambdaisland/uri)
 
 #?(:clj
-   (defmethod print-method URI [this writer]
+   (defmethod print-method URI [^URI this ^java.io.Writer writer]
      (.write writer "#")
      (.write writer (str edn-tag))
      (.write writer " ")
