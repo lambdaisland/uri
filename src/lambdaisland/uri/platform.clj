@@ -1,6 +1,6 @@
 (ns lambdaisland.uri.platform)
 
-(defn string->byte-seq [s]
+(defn string->byte-seq [^String s]
   (.getBytes s "UTF8"))
 
 (defn byte-seq->string [arr]
@@ -12,5 +12,5 @@
 (defn byte->hex [byte]
   (format "%X" byte))
 
-(defn char-code-at [str pos]
-  (long (.charAt str pos)))
+(defn char-code-at [^String str pos]
+  (long ^Character (.charAt str pos)))
