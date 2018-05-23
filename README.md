@@ -14,7 +14,7 @@ Key features
 ## Rationale
 
 There are a number of Clojure libraries for working with URI/URLs (see
-[Similar projects](#similar_projects) below). They all rely to some degree on
+[Similar projects](#similar-projects) below). They all rely to some degree on
 `java.net.URI` or `java.net.URL`. This lib provides a pure-Clojure/ClojureScript
 alternative.
 
