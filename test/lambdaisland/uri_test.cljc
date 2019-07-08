@@ -118,3 +118,10 @@
   (are [x] (uri/absolute? (uri/parse x))
     "http://example.com"
     "https://example.com:8080/foo/bar?baz#baq"))
+
+(deftest blank-is-ignored?
+  (is (= "https://example.com/resource"
+         (str (-> (uri/uri "/resource")
+                  (assoc :port "")
+                  (assoc :host "example.com")
+                  (assoc :scheme "https"))))))

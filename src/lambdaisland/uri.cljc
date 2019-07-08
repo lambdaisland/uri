@@ -20,7 +20,9 @@
                                  (and user password) (str ":" password)
                                  user                (str "@")
                                  true                (str host)
-                                 port                (str ":" port))))
+                                 (-> port
+                                     str
+                                     seq)                (str ":" port))))
           authority (authority-string user password host port)]
       (cond-> ""
         scheme    (str scheme ":")
