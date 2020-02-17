@@ -7,6 +7,6 @@
  {:dev {}
   :test
   {:extra-deps
-   {lambdaisland/kaocha           {:local/root "RELEASE"}
-    lambdaisland/kaocha-cljs      {:local/root "RELEASE"}
+   {lambdaisland/kaocha           {:mvn/version "RELEASE"}
+    lambdaisland/kaocha-cljs      {:mvn/version "RELEASE"}
     lambdaisland/kaocha-junit-xml {:mvn/version "RELEASE"}}}}}
