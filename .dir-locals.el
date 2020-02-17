@@ -1,2 +1,1 @@
-((nil .
-  ((cider-cljs-lein-repl . "(cemerick.piggieback/cljs-repl (cljs.repl.rhino/repl-env))"))))
+((nil . ((cider-clojure-cli-global-options . "-A:dev:test"))))

@@ -11,3 +11,7 @@ pom.xml.asc
 .hg/
 gh-pages
 .cljs_rhino_repl
+.cljs_node_repl
+out
+node_modules
+.cpcache
