@@ -1,4 +1,4 @@
-# Change Log
+# 1.2.0 (2020-02-17 / c0e1f1a)
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
 <!-- (this space deliberately left blank) -->
