@@ -30,16 +30,6 @@
       <artifactId>clojure</artifactId>
       <version>1.10.1</version>
     </dependency>
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>clojurescript</artifactId>
-      <version>1.10.597</version>
-    </dependency>
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>data.json</artifactId>
-      <version>0.2.7</version>
-    </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
