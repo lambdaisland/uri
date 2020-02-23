@@ -1,3 +1,11 @@
+# Unreleased
+
+## Added
+
+## Fixed
+
+## Changed
+
 # 1.2.1 (2020-02-23 / a992787)
 
 ## Changed
