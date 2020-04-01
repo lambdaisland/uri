@@ -33,6 +33,14 @@ See the [announcement blog post](https://lambdaisland.com/blog/27-02-2017-announ
 
 To install, add the following dependency to your project or build file:
 
+deps.edn:
+
+``` clojure
+lambdaisland/uri {:mvn/version "1.2.1"}
+```
+
+project.clj
+
 ``` clojure
 [lambdaisland/uri "1.2.1"]
 ```
