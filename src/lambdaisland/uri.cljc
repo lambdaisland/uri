@@ -198,7 +198,7 @@
        "="
        (query-encode (str v))))
 
-(defn map->query-str
+(defn map->query-string
   "Convert a map into a query string, consisting of key=value pairs separated by
   `&`. The result is percent-encoded so it is always safe to use. Keys can be
   strings or keywords. If values are collections then this results in multiple
@@ -222,7 +222,7 @@
   a map of query params."
   [u m]
   (let [u (uri u)]
-    (assoc u :query (map->query-str (merge (query-map u) m)))))
+    (assoc u :query (map->query-string (merge (query-map u) m)))))
 
 (defn assoc-query
   "Add additional query parameters to a URI. Takes a URI (or coercible to URI)
