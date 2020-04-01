@@ -2,6 +2,10 @@
 
 ## Added
 
+- Added function for dealing with query strings as maps: `query-string->map`,
+  `map->query-string`, `query-map`, `query-encode`, `assoc-query`,
+  `assoc-query*`.
+
 ## Fixed
 
 ## Changed
@@ -10,26 +14,26 @@
 
 ## Changed
 
-Remove dependencies on ClojureScript and data.json.
+- Remove dependencies on ClojureScript and data.json.
 
 # 1.2.0 (2020-02-17 / c0e1f1a)
 
-### Added
+## Added
 
 - `lambdaisland.uri.normalize/normalize`, for normalizing URI instances.
 
-### Changed
+## Changed
 
 - Added type hints to avoid reflection (thanks @totakke!)
 
-## 1.1.0 (2017-04-25)
+# 1.1.0 (2017-04-25)
 
-### Added
+## Added
 
 - Predicate functions `absolute?` and `relative?`
 
-## 1.0.0 (2017-02-23)
+# 1.0.0 (2017-02-23)
 
-### Added
+## Added
 
 - Initial release, public vars: `uri`, `join`, `coerce`, `parse`, `edn-readers`
