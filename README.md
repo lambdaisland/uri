@@ -45,10 +45,6 @@ project.clj
 [lambdaisland/uri "1.2.1"]
 ```
 
-## API docs
-
-[lambdaisland/uri API docs](https://lambdaisland.github.io/uri/)
-
 ## Usage
 
 ``` clojure
@@ -98,6 +94,8 @@ project.clj
  {:readers lambdaisland.uri/edn-readers}
  "#lambdaisland/uri \"http://example.com/foo/~arne/foo.png\"")
 ```
+
+[Full API docs are on Cljdoc](https://cljdoc.org/d/lambdaisland/uri)
 
 ## Similar projects
 
