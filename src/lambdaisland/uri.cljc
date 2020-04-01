@@ -202,13 +202,17 @@
   "Convert a map into a query string, consisting of key=value pairs separated by
   `&`. The result is percent-encoded so it is always safe to use. Keys can be
   strings or keywords. If values are collections then this results in multiple
-  entries for the same key. Values are stringified."
+  entries for the same key. `nil` values are ignored. Values are stringified."
   [m]
   (when (seq m)
     (->> m
          (mapcat (fn [[k v]]
-                   (if (coll? v)
+                   (cond
+                     (nil? v)
+                     []
+                     (coll? v)
                      (map (partial encode-param-pair k) v)
+                     :else
                      [(encode-param-pair k v)])))
          (interpose "&")
          (apply str))))
