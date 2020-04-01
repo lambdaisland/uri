@@ -174,7 +174,7 @@
   ([uri]
    (query-map uri nil))
   ([u opts]
-   (query-string->map (:query (uri u)))))
+   (query-string->map (:query (uri u)) opts)))
 
 (defn query-encode
   "Percent encoding for query strings. Will encode values that are reserved in

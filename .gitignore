@@ -16,3 +16,5 @@ node_modules
 .cpcache
 bin/prep_release
 bin/release
+package-lock.json
+bin

@@ -118,3 +118,37 @@
   (are [x] (uri/absolute? (uri/parse x))
     "http://example.com"
     "https://example.com:8080/foo/bar?baz#baq"))
+
+(deftest query-map-test
+  (is (= {:foo "bar", :aaa "bbb"}
+         (uri/query-map "http://example.com?foo=bar&aaa=bbb")))
+
+  (is (= {"foo" "bar", "aaa" "bbb"}
+         (uri/query-map "http://example.com?foo=bar&aaa=bbb" {:keywordize? false})))
+
+  (is (= {:id ["1" "2"]}
+         (uri/query-map "?id=1&id=2")))
+
+  (is (= {:id "2"}
+         (uri/query-map "?id=1&id=2" {:multikeys :never})))
+
+  (is (= {:foo ["bar"], :id ["2"]}
+         (uri/query-map "?foo=bar&id=2" {:multikeys :always}))))
+
+(deftest assoc-query-test
+  (is (= (uri/uri "http://example.com?foo=baq&aaa=bbb&hello=world")
+         (uri/assoc-query "http://example.com?foo=bar&aaa=bbb"
+                          :foo "baq"
+                          :hello "world")))
+
+  (is (= (uri/uri "http://example.com?foo=baq&aaa=bbb&hello=world")
+         (uri/assoc-query* "http://example.com?foo=bar&aaa=bbb"
+                           {:foo "baq"
+                            :hello "world"})))
+
+
+  (is (= (uri/uri "?id=1&id=2")
+         (uri/assoc-query* "" (uri/query-map "?id=1&id=2"))))
+
+  (is (= (uri/uri "?id=1")
+         (uri/assoc-query "?id=1&name=jack" :name nil))))
