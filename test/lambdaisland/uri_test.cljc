@@ -146,9 +146,11 @@
                            {:foo "baq"
                             :hello "world"})))
 
-
   (is (= (uri/uri "?id=1&id=2")
          (uri/assoc-query* "" (uri/query-map "?id=1&id=2"))))
 
   (is (= (uri/uri "?id=1")
-         (uri/assoc-query "?id=1&name=jack" :name nil))))
+         (uri/assoc-query "?id=1&name=jack" :name nil)))
+
+  (is (= (uri/uri "?foo=%20%2B%26%3D")
+         (uri/assoc-query "" :foo " +&="))))

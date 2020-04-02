@@ -181,7 +181,7 @@
   query strings only."
   [s]
   (let [encode-char #(cond-> %
-                       (re-find #"[^a-zA-Z0-9\-\._~!\$&'\(\)\*\+,;:@\/]" %)
+                       (re-find #"[^a-zA-Z0-9\-\._~@\/]" %)
                        normalize/percent-encode)]
     (->> (normalize/char-seq s)
          (map encode-char)
