@@ -12,8 +12,6 @@
   there is a semantic difference between the encoded and decoded form, when they
   are encoded in the input normalization should not decode them and vice versa
 
-## Changed
-
 # 1.2.1 (2020-02-23 / a992787)
 
 ## Changed
