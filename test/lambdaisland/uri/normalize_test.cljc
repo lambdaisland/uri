@@ -3,7 +3,6 @@
             [lambdaisland.uri.normalize :as n]
             [clojure.test :refer [deftest testing is are]]))
 
-
 (deftest normalize-test
   (are [x y] (= (-> x uri/parse n/normalize str) y)
     "http://example.com/a b c"     "http://example.com/a%20b%20c"
@@ -13,7 +12,13 @@
 
   (are [x y] (= (-> x n/normalize str) y)
     (uri/map->URI {:query "x=y"}) "?x=y"
-    (uri/map->URI {:query "x=?y#"}) "?x=?y%23"))
+    (uri/map->URI {:query "x=?y#"}) "?x=?y%23"
+    (uri/map->URI {:query "foo=bar"}) "?foo=bar"
+    (uri/map->URI {:query "foo=b%61r"}) "?foo=bar"
+    (uri/map->URI {:query "foo=bar%3Dbaz"}) "?foo=bar%3Dbaz"
+    (uri/map->URI {:query "foo=%20%2B%26xxx%3D123"}) "?foo=%20%2B%26xxx%3D123"
+    ))
+
 
 (deftest normalize-path-test
   (are [x y] (= (n/normalize-path x) y)

@@ -1,4 +1,4 @@
-(ns lambdaisland.uri.platform
+(ns lambdaisland.uri.platform ;; cljs
   (:require [goog.crypt :as c]))
 
 (defn string->byte-seq [s]
@@ -23,3 +23,6 @@
 
 (defn char-code-at [str pos]
   (.charCodeAt str pos))
+
+(defn str-len [s]
+  (.-length s))

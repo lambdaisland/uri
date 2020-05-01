@@ -133,7 +133,10 @@
          (uri/query-map "?id=1&id=2" {:multikeys :never})))
 
   (is (= {:foo ["bar"], :id ["2"]}
-         (uri/query-map "?foo=bar&id=2" {:multikeys :always}))))
+         (uri/query-map "?foo=bar&id=2" {:multikeys :always})))
+
+  (is (= {:foo " +&xxx=123"}
+         (uri/query-map "?foo=%20%2B%26xxx%3D123"))))
 
 (deftest assoc-query-test
   (is (= (uri/uri "http://example.com?foo=baq&aaa=bbb&hello=world")

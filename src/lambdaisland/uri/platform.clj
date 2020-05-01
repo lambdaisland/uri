@@ -1,4 +1,4 @@
-(ns lambdaisland.uri.platform)
+(ns lambdaisland.uri.platform) ;; clj
 
 (defn string->byte-seq [^String s]
   (.getBytes s "UTF8"))
@@ -14,3 +14,6 @@
 
 (defn char-code-at [^String str pos]
   (long ^Character (.charAt str pos)))
+
+(defn str-len [^String s]
+  (.length s))
