@@ -1,4 +1,4 @@
-# Unreleased
+# 1.4.49 (2020-06-11 / ee48e58)
 
 ## Changed
 
