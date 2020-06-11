@@ -177,12 +177,16 @@
    (query-string->map (:query (uri u)) opts)))
 
 (defn query-encode
-  "Percent encoding for query strings. Will encode values that are reserved in
-  query strings only."
+  "Percent encoding for query strings. Will percent-encode values that are
+  reserved in query strings only. Encodes spaces as +."
   [s]
-  (let [encode-char #(cond-> %
+  (let [encode-char #(cond
+                       (= " " %)
+                       "+"
                        (re-find #"[^a-zA-Z0-9\-\._~@\/]" %)
-                       normalize/percent-encode)]
+                       (normalize/percent-encode %)
+                       :else
+                       %)]
     (->> (normalize/char-seq s)
          (map encode-char)
          (apply str))))

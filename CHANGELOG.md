@@ -1,10 +1,9 @@
 # Unreleased
 
-## Added
-
-## Fixed
-
 ## Changed
+
+- Make `assoc-query` / `query-encode` encode spaces as "+" rather than "%20",
+  which brings it in line to how most languages/libraries do it.
 
 # 1.3.45 (2020-05-01 / a04368b)
 
