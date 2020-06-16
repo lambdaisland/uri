@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>lambdaisland</groupId>
   <artifactId>uri</artifactId>
-  <version>1.4.49</version>
+  <version>1.4.53</version>
   <name>uri</name>
-  <description>Pure Clojure/ClojureScript URI library</description>
+  <description>A pure Clojure/ClojureScript URI library.</description>
   <url>https://github.com/lambdaisland/uri</url>
   <inceptionYear>2017</inceptionYear>
   <organization>
@@ -14,15 +14,15 @@
   </organization>
   <licenses>
     <license>
-      <name>Mozilla Public License Version 2.0</name>
-      <url>https://www.mozilla.org/en-US/MPL/2.0/</url>
+      <name>MPL-2.0</name>
+      <url>https://www.mozilla.org/media/MPL/2.0/index.txt</url>
     </license>
   </licenses>
   <scm>
     <url>https://github.com/lambdaisland/uri</url>
     <connection>scm:git:git://github.com/lambdaisland/uri.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/lambdaisland/uri.git</developerConnection>
-    <tag>d9802d8f2d8c27fe3cc16cf87672736190076b84</tag>
+    <tag>408c61d2c8b46312e4a4ad850e7310ae9980f406</tag>
   </scm>
   <dependencies>
     <dependency>
@@ -38,7 +38,7 @@
         <directory>src</directory>
       </resource>
       <resource>
-        <directory>resources</directory>
+        <directory>test</directory>
       </resource>
     </resources>
     <plugins>
@@ -49,10 +49,24 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Git-Revision>d9802d8f2d8c27fe3cc16cf87672736190076b84</Git-Revision>
+              <git-revision>408c61d2c8b46312e4a4ad850e7310ae9980f406</git-revision>
             </manifestEntries>
           </archive>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
