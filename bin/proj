@@ -1,0 +1,13 @@
+#!bin/bb
+
+(ns proj (:require [lioss.main :as lioss]))
+
+(lioss/main
+ {:license        :mpl
+  :inception-year 2017
+  :description    "A pure Clojure/ClojureScript URI library."})
+
+
+;; Local Variables:
+;; mode:clojure
+;; End:
