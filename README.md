@@ -36,13 +36,13 @@ To install, add the following dependency to your project or build file:
 deps.edn:
 
 ``` clojure
-lambdaisland/uri {:mvn/version "1.4.49"}
+lambdaisland/uri {:mvn/version "1.4.54"}
 ```
 
 project.clj
 
 ``` clojure
-[lambdaisland/uri "1.4.49"]
+[lambdaisland/uri "1.4.54"]
 ```
 
 ## Usage
