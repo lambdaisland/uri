@@ -1,10 +1,12 @@
 # Unreleased
 
-## Added
-
 ## Fixed
 
-## Changed
+- Make query decoding handle `+` as space, so the conversion between maps and
+  query strings correctly round trips.
+- Handle percent encoding of control characters (codepoints < 16)
+- make `lambdaisland.uri.platform/string->byte-seq` return unsigned bytes on
+  both plaforms (clj/cljs)
 
 # 1.4.49 (2020-06-11 / ee48e58)
 

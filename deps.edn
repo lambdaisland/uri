@@ -8,4 +8,5 @@
    {org.clojure/clojurescript     {:mvn/version "1.10.597"}
     lambdaisland/kaocha           {:mvn/version "RELEASE"}
     lambdaisland/kaocha-cljs      {:mvn/version "RELEASE"}
-    lambdaisland/kaocha-junit-xml {:mvn/version "RELEASE"}}}}}
+    lambdaisland/kaocha-junit-xml {:mvn/version "RELEASE"}
+    org.clojure/test.check        {:mvn/version "1.0.0"}}}}}

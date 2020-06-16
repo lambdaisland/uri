@@ -77,12 +77,13 @@
    characters. Byte sequences are interpreted as UTF-8. To use a different
    encoding. re-bind `*character-encoding*`"
   [s]
-  (str/replace s #"(%[0-9A-Fa-f]{2})+"
-               (fn [[x _]]
-                 (byte-seq->string
-                  (->> (str/split x #"%")
-                       (drop 1)
-                       (map hex->byte))))))
+  (when s
+    (str/replace s #"(%[0-9A-Fa-f]{2})+"
+                 (fn [[x _]]
+                   (byte-seq->string
+                    (->> (str/split x #"%")
+                         (drop 1)
+                         (map hex->byte)))))))
 
 (defn normalize-path [path]
   (when-not (nil? path)

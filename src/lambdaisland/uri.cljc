@@ -124,7 +124,7 @@
 (defn- decode-param-pair [param]
   (let [[k v] (str/split param #"=")]
     [(if k (normalize/percent-decode k) "")
-     (if v (normalize/percent-decode v) "")]))
+     (if v (normalize/percent-decode (str/replace v #"\+" " ")) "")]))
 
 (defn query-string->map
   "Parse a query string, consisting of key=value pairs, separated by \"&\". Takes

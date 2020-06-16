@@ -1,12 +1,13 @@
 (ns lambdaisland.uri-test
-  #?@(:clj
-      [(:require
-        [clojure.test :as t :refer [are deftest is testing]]
-        [lambdaisland.uri :as uri])
-       (:import lambdaisland.uri.URI)]
-      :cljs
-      [(:require [lambdaisland.uri :as uri]
-                 [cljs.test :refer-macros [deftest is testing are]])]))
+  (:require [clojure.test :as t :refer [are deftest is testing]]
+            [lambdaisland.uri :as uri]
+            [lambdaisland.uri.normalize :as norm]
+            [lambdaisland.uri.platform :as platform]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.properties :as prop]
+            [clojure.test.check.clojure-test :as tc]
+            [clojure.string :as str])
+  #?(:clj (:import lambdaisland.uri.URI)))
 
 (deftest parsing
   (testing "happy path"
@@ -156,4 +157,27 @@
          (uri/assoc-query "?id=1&name=jack" :name nil)))
 
   (is (= (uri/uri "?foo=+%2B%26%3D")
-         (uri/assoc-query "" :foo " +&="))))
+         (uri/assoc-query "" :foo " +&=")))
+
+  (is (= "a=a+b&b=b+c"
+         (-> "/foo"
+             (uri/assoc-query* {:a "a b"})
+             (uri/assoc-query* {:b "b c"})
+             :query)))
+
+  (is (= {:a "a b"}
+         (-> "/foo"
+             (uri/assoc-query* {:a "a b"})
+             uri/query-map))))
+
+(def query-map-gen
+  (gen/map (gen/such-that #(not= ":/" (str %)) gen/keyword)
+           gen/string))
+
+(tc/defspec query-string-round-trips 100
+  (prop/for-all [q query-map-gen]
+    (let [res (-> q
+                  uri/map->query-string
+                  uri/query-string->map)]
+      (or (and (empty? q) (empty? res)) ;; (= nil {})
+          (= q res)))))
