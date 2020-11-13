@@ -104,7 +104,7 @@ project.clj
   is the most mature pure-Clojure URI lib out there. It does not provide
   ClojureScript support.
 * [cemerick/url](https://github.com/cemerick/url)
-  Cross platform (cljx), Clojure version uses `java.net.URI`.
+  Cross platform (cljx), Clojure version uses `java.net.URL`.
 * [michaelklishin/urly](https://github.com/michaelklishin/urly)
   Based on `java.net.URI`.
 * [codonnell/uri](https://github.com/codonnell/uri)
