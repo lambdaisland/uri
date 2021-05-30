@@ -170,6 +170,9 @@
              (uri/assoc-query* {:a "a b"})
              uri/query-map))))
 
+(deftest uri-predicate-test
+  (is (true? (uri/uri? (uri/uri "/foo")))))
+
 (def query-map-gen
   (gen/map (gen/such-that #(not= ":/" (str %)) gen/keyword)
            gen/string))

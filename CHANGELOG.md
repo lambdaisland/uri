@@ -2,6 +2,8 @@
 
 ## Added
 
+- Add `uri?` predicate.
+
 ## Fixed
 
 ## Changed

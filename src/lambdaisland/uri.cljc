@@ -1,4 +1,5 @@
 (ns lambdaisland.uri
+  (:refer-clojure :exclude [uri?])
   (:require [clojure.string :as str]
             [lambdaisland.uri.normalize :as normalize])
   #?(:clj (:import clojure.lang.IFn)))
@@ -249,6 +250,11 @@
   ^{:doc
     "Is the URI absolute? Returns true if the URI has a scheme (protocol), and hence also an origin."}
   absolute? (complement relative?))
+
+(defn uri?
+  "Check if `o` is URI instance."
+  [o]
+  (instance? URI o))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; EDN
