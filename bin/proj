@@ -4,6 +4,7 @@
 
 (lioss/main
  {:license        :mpl
+  :group-id       "lambdaisland"
   :inception-year 2017
   :description    "A pure Clojure/ClojureScript URI library."})
 
