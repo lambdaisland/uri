@@ -3,33 +3,41 @@
   (:require [clojure.string :as str]
             [lambdaisland.uri.normalize :as normalize])
   #?(:clj (:import clojure.lang.IFn)))
-
+str
 
 (def uri-regex #?(:clj #"\A(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)?(\?([^#]*))?(#(.*))?\z"
                   :cljs #"^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)?(\?([^#]*))?(#(.*))?$"))
 (def authority-regex #?(:clj #"\A(([^:]*)(:(.*))?@)?([^:]*)(:(\d*))?\z"
                         :cljs #"^(([^:]*)(:(.*))?@)?([^:]*)(:(\d*))?$"))
 
+(defn- authority-string  [user password host port]
+  (when host
+    (cond-> user
+      (and user password) (str ":" password)
+      user                (str "@")
+      true                (str host)
+      port                (str ":" port))))
+
+(defn uri-str
+  "Convert the URI instance back to a string"
+  [{:keys [scheme user password host port path query fragment]}]
+  (let [authority (authority-string user password host port)]
+    (cond-> ""
+      scheme    (str scheme ":")
+      authority (str "//" authority)
+      true      (str path)
+      query     (str "?" query)
+      fragment  (str "#" fragment))))
+
 (defrecord URI [scheme user password host port path query fragment]
-  IFn
-  (#?(:clj invoke :cljs -invoke) [this kw]
-    (get this kw))
-  Object
-  (toString [this]
-    (let [authority-string (fn [user password host port]
-                             (when host
-                               (cond-> user
-                                 (and user password) (str ":" password)
-                                 user                (str "@")
-                                 true                (str host)
-                                 port                (str ":" port))))
-          authority (authority-string user password host port)]
-      (cond-> ""
-        scheme    (str scheme ":")
-        authority (str "//" authority)
-        true      (str path)
-        query     (str "?" query)
-        fragment  (str "#" fragment)))))
+  #?@(:bb []
+      :default
+      [IFn
+       (#?(:clj invoke :cljs -invoke) [this kw]
+                                      (get this kw))
+       Object
+       (toString [this]
+                 (uri-str this))]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parse
