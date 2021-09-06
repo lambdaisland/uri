@@ -2,9 +2,14 @@
 
 ## Added
 
+- `uri-str` as an explicit `lambdaisland.uri.URI` to string conversion
+
 ## Fixed
 
-## Changed
+- Fixed compatibility with Babashka/SCI. Note that on babashka we can't
+  implement IFn or toString, so converting a `URI` back to a string needs to be
+  done explicitly with `uri-str`, and it is not possible to use a URI as a
+  function. (`(:path uri)` is ok, `(uri :path)` is not).
 
 # 1.4.70 (2021-05-31 / 76999dc)
 

@@ -97,6 +97,30 @@ project.clj
 
 [Full API docs are on Cljdoc](https://cljdoc.org/d/lambdaisland/uri)
 
+## Babashka-specific caveats (also applies to SCI)
+
+Instances of URI implement the `toString` method, so calling `(str uri)` gives
+you the URI back as a string. They also implement the `IFn` interfaces so they
+are callable the way maps are.
+
+On babashka implementing interfaces or overriding Object methods is not
+supported. As an alternative to `clojure.core/str` you can use
+`lambdaisland.uri/uri-str`. As an alternative to using the URI as a function, use the keyword as a function, or use `clojure.core/get`
+
+``` clojure
+;; clojure / clojurescript
+(str uri) ;; "https://example.com"
+(uri :domain) ;; "example.com"
+
+;; bb
+(str uri) ;; "{:scheme "https", :domain "example.com", :path ...}"
+(uri :domain) ;; nil
+
+(uri/uri-str uri) ;; "https://example.com"
+(:domain uri) ;; "example.com"
+(get uri :domain) ;; "example.com"
+```
+
 ## Similar projects
 
 * [exploding-fish](https://github.com/wtetzner/exploding-fish)
