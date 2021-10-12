@@ -89,6 +89,10 @@
   (when-not (nil? path)
     (percent-encode (percent-decode path) :path)))
 
+(defn normalize-fragment [fragment]
+  (when-not (nil? fragment)
+    (percent-encode (percent-decode fragment) :fragment)))
+
 (defn hex-code-point? [cp]
   (or (<= #_(long \0) 48 cp #_(long \9) 57)
       (<= #_(long \A) 65 cp #_(long \F) 70)
@@ -142,8 +146,10 @@
                  (conj res (percent-encode (subs s i (inc i)) :query))))))))
 
 (defn normalize
-  "Normalize a lambdaisland.uri.URI."
+  "Normalize a lambdaisland.uri.URI. Currently normalizes (percent-encodes) the
+  path, query, and fragment."
   [uri]
   (-> uri
       (update :path normalize-path)
-      (update :query normalize-query)))
+      (update :query normalize-query)
+      (update :fragment normalize-fragment)))

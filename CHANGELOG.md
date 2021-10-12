@@ -1,10 +1,8 @@
 # Unreleased
 
-## Added
-
-## Fixed
-
 ## Changed
+
+- `lambdaisland.uri.normalize/normalize` now also normalizes the fragment.
 
 # 1.4.74 (2021-09-06 / e07f9fd)
 
