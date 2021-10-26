@@ -4,6 +4,9 @@
 
 ## Fixed
 
+- Fixed an issue in `lambdaisland.uri.normalize/normalize-query` which did
+not take into account utf-16 encoding.
+
 ## Changed
 
 # 1.10.79 (2021-10-12 / d90c6a8)

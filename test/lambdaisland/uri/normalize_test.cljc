@@ -8,7 +8,8 @@
     "http://example.com/a b c"     "http://example.com/a%20b%20c"
     "http://example.com/a%20b%20c" "http://example.com/a%20b%20c"
     "/𝍖"                          "/%F0%9D%8D%96"
-    "http://foo.bar/?x=%20" "http://foo.bar/?x=%20")
+    "http://foo.bar/?x=%20" "http://foo.bar/?x=%20"
+    "https://example.com?text=You are welcome 🙂" "https://example.com?text=You%20are%20welcome%20%F0%9F%99%82" )
 
   (are [x y] (= (-> x n/normalize str) y)
     (uri/map->URI {:query "x=y"}) "?x=y"
@@ -17,8 +18,8 @@
     (uri/map->URI {:query "foo=b%61r"}) "?foo=bar"
     (uri/map->URI {:query "foo=bar%3Dbaz"}) "?foo=bar%3Dbaz"
     (uri/map->URI {:query "foo=%20%2B%26xxx%3D123"}) "?foo=%20%2B%26xxx%3D123"
+    (uri/map->URI {:query "text=You are welcome 🙂"}) "?text=You%20are%20welcome%20%F0%9F%99%82"
     ))
-
 
 (deftest normalize-path-test
   (are [x y] (= (n/normalize-path x) y)
