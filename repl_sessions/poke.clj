@@ -4,3 +4,6 @@
 
 (:fragment (norm/normalize (uri/map->URI {:fragment "'#'schön"})))
 "'%23'sch%C3%B6n"
+
+(norm/normalize-fragment "schön")
+;; => "sch%C3%B6n"
