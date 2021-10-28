@@ -40,6 +40,9 @@
      :query      (re-pattern (str "[^" query "]"))
      :fragment   (re-pattern (str "[^" fragment "]"))}))
 
+(defn high-surrogate? [char-code]
+  (<= 0xD800 char-code 0xDBFF))
+
 (defn char-seq
   "Return a seq of the characters in a string, making sure not to split up
   UCS-2 (or is it UTF-16?) surrogate pairs. Because JavaScript. And Java."
@@ -49,7 +52,7 @@
    (if (>= offset (str-len str))
      ()
      (let [code (char-code-at str offset)
-           width (if (<= 0xD800 code 0xDBFF) 2 1)] ; "high surrogate"
+           width (if (high-surrogate? code) 2 1)]
        (cons (subs str offset (+ offset width))
              (char-seq str (+ offset width)))))))
 
@@ -142,8 +145,9 @@
                  (conj res (subs s i (inc i))))
 
           :else
-          (recur (inc i)
-                 (conj res (percent-encode (subs s i (inc i)) :query))))))))
+          (let [increment (if (high-surrogate? (char-code-at s i)) 2 1)]
+            (recur (+ i increment)
+                   (conj res (percent-encode (subs s i (+ i increment)) :query)))))))))
 
 (defn normalize
   "Normalize a lambdaisland.uri.URI. Currently normalizes (percent-encodes) the
