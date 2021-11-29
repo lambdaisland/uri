@@ -3,7 +3,6 @@
   (:require [clojure.string :as str]
             [lambdaisland.uri.normalize :as normalize])
   #?(:clj (:import clojure.lang.IFn)))
-str
 
 (def uri-regex #?(:clj #"\A(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)?(\?([^#]*))?(#(.*))?\z"
                   :cljs #"^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)?(\?([^#]*))?(#(.*))?$"))
@@ -34,10 +33,10 @@ str
       :default
       [IFn
        (#?(:clj invoke :cljs -invoke) [this kw]
-                                      (get this kw))
-       Object
-       (toString [this]
-                 (uri-str this))]))
+                                      (get this kw))])
+  Object
+  (toString [this]
+    (uri-str this)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parse
