@@ -1,10 +1,9 @@
 # Unreleased
 
-## Added
-
 ## Fixed
 
-## Changed
+- Fix a stack overflow in `normalize/char-seq` for really large query parameter
+  values
 
 # 1.12.89 (2021-11-29 / 2118a75)
 
