@@ -21,6 +21,16 @@
     (uri/map->URI {:query "text=You are welcome 🙂"}) "?text=You%20are%20welcome%20%F0%9F%99%82"
     ))
 
+(deftest char-seq-test
+  (let [long-string (->> "s"
+                         ;; Long enough to trigger StackOverflow in non-tail recursive cases.
+                         (repeat 5000)
+                         (apply str))
+        long-string-len (count long-string)
+        cs (n/char-seq long-string)]
+    (is (= long-string-len (count cs)))
+    (is (every? #{"s"} cs))))
+
 (deftest normalize-path-test
   (are [x y] (= (n/normalize-path x) y)
     "/abc" "/abc"
