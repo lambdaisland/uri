@@ -49,12 +49,16 @@
   ([str]
    (char-seq str 0))
   ([str offset]
-   (if (>= offset (str-len str))
-     ()
-     (let [code (char-code-at str offset)
-           width (if (high-surrogate? code) 2 1)]
-       (cons (subs str offset (+ offset width))
-             (char-seq str (+ offset width)))))))
+   (loop [offset offset
+          res []]
+     (if (>= offset (str-len str))
+       res
+       (let [code (char-code-at str offset)
+             width (if (high-surrogate? code) 2 1)
+             next-offset (+ offset width)
+             cur-char (subs str offset next-offset)]
+         (recur next-offset
+                (conj res cur-char)))))))
 
 (defn percent-encode
   "Convert characters in their percent encoded form. e.g.
