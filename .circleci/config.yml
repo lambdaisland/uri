@@ -26,8 +26,8 @@ commands:
                 flags: clj
 
 jobs:
-  java-15-clojure-1_10:
-    executor: clojure/openjdk15
+  java-17-clojure-1_10:
+    executor: clojure/openjdk17
     steps: [{checkout_and_run: {clojure_version: "1.10.1"}}]
     
   java-11-clojure-1_10:
@@ -45,7 +45,7 @@ jobs:
 workflows:
   kaocha_test:
     jobs:
-      - java-15-clojure-1_10
+      - java-17-clojure-1_10
       - java-11-clojure-1_10
       - java-9-clojure-1_10
       - java-8-clojure-1_10
