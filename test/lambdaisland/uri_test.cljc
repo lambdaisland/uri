@@ -97,15 +97,17 @@
       (is (= (:path parsed) "/path"))
       (is (= (:query parsed) "query=value"))
       (is (= (:fragment parsed) "fragment")))
-    (testing "it allows map-style access"
-      (is (= (parsed :scheme) "http"))
-      (is (= (parsed :user) "usr"))
-      (is (= (parsed :password) "pwd"))
-      (is (= (parsed :host) "example.com"))
-      (is (= (parsed :port) "8080"))
-      (is (= (parsed :path) "/path"))
-      (is (= (parsed :query) "query=value"))
-      (is (= (parsed :fragment) "fragment")))
+    #?(:bb nil
+       :default
+       (testing "it allows map-style access"
+         (is (= (parsed :scheme) "http"))
+         (is (= (parsed :user) "usr"))
+         (is (= (parsed :password) "pwd"))
+         (is (= (parsed :host) "example.com"))
+         (is (= (parsed :port) "8080"))
+         (is (= (parsed :path) "/path"))
+         (is (= (parsed :query) "query=value"))
+         (is (= (parsed :fragment) "fragment"))))
     (testing "it converts correctly to string"
       (is (= (str parsed) example)))))
 

@@ -1,3 +1,16 @@
 {:deps
  {lambdaisland/open-source {:git/url "https://github.com/lambdaisland/open-source"
-                            :git/sha "835e8f001659ed07e5835a554b99828331a88e8d"}}}
+                            :git/sha "835e8f001659ed07e5835a554b99828331a88e8d"}
+  current/project {:local/root "."}}
+
+ :tasks
+ {test:clj {:doc "Run Clojure JVM tests"
+            :task (shell "bin/kaocha")}
+
+  test:bb  {:doc "Run babashka tests"
+            :extra-paths ["test"]
+            :extra-deps {org.clojure/test.check {:mvn/version "1.0.0"}}
+            :requires ([lambdaisland.uri-test])
+            :task (let [{:keys [error fail]} (clojure.test/run-tests 'lambdaisland.uri-test)]
+                    (when (pos? (+ error fail))
+                      (throw (ex-info "Tests failed" {:babashka/exit 1}))))}}}
