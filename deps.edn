@@ -7,7 +7,7 @@
   {:extra-paths ["test"]
    :extra-deps
    {org.clojure/clojurescript     {:mvn/version "1.10.597"}
-    lambdaisland/kaocha           {:mvn/version "RELEASE"}
-    com.lambdaisland/kaocha-cljs      {:mvn/version "1.0.113"}
+    lambdaisland/kaocha           {:mvn/version "1.70.1086"}
+    com.lambdaisland/kaocha-cljs      {:mvn/version "1.4.130"}
     lambdaisland/kaocha-junit-xml {:mvn/version "RELEASE"}
     org.clojure/test.check        {:mvn/version "1.0.0"}}}}}

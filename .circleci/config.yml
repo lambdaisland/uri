@@ -47,10 +47,11 @@ jobs:
     steps:
       - checkout
       - run:
-          curl -sLO https://raw.githubusercontent.com/babashka/babashka/master/install
-          chmod +x install
-          sudo ./install
-          bb test:bb
+          command: |
+            curl -sLO https://raw.githubusercontent.com/babashka/babashka/master/install
+            chmod +x install
+            ./install
+            bb test:bb
 
 workflows:
   kaocha_test:
