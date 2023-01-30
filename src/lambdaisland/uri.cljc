@@ -207,27 +207,31 @@
           (qualified-ident? k)
           (str (namespace k) "/" (name k))
           :else (str k)))
-       "="
-       (query-encode (str v))))
+       (when (some? v) "=")
+       (some-> v str query-encode)))
 
 (defn map->query-string
   "Convert a map into a query string, consisting of key=value pairs separated by
   `&`. The result is percent-encoded so it is always safe to use. Keys can be
   strings or keywords. If values are collections then this results in multiple
   entries for the same key. `nil` values are ignored. Values are stringified."
-  [m]
-  (when (seq m)
-    (->> m
-         (mapcat (fn [[k v]]
-                   (cond
-                     (nil? v)
-                     []
-                     (coll? v)
-                     (map (partial encode-param-pair k) v)
-                     :else
-                     [(encode-param-pair k v)])))
-         (interpose "&")
-         (apply str))))
+  ([m]
+   (map->query-string m nil))
+  ([m {:keys [nillable?]
+       :or {nillable? false}
+       :as _opts}]
+   (when (seq m)
+     (->> m
+          (mapcat (fn [[k v]]
+                    (cond
+                      (nil? v)
+                      (if nillable? [(encode-param-pair k v)] [])
+                      (coll? v)
+                      (map (partial encode-param-pair k) v)
+                      :else
+                      [(encode-param-pair k v)])))
+          (interpose "&")
+          (apply str)))))
 
 (defn assoc-query*
   "Add additional query parameters to a URI. Takes a URI (or coercible to URI) and

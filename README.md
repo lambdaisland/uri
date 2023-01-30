@@ -61,7 +61,7 @@ project.clj
 ## Usage
 
 ``` clojure
-(require '[lambdaisland.uri :refer [uri join]])
+(require '[lambdaisland.uri :refer [uri join map->query-string parse]])
 
 
 ;; uri :: String -> lambdaisland.uri.URI
@@ -98,6 +98,23 @@ project.clj
 ;; URI implements IFn for keyword based lookup, so it's fully
 ;; interface-compatible with Clojure maps.
 (:path (uri "http://example.com/foo/bar"))
+
+;; Extracting query-params from a query-string
+(query-string->map "foo=bar")
+=> {:foo "bar"}
+;; and back
+(map->query-string {:foo "bar"})
+=> "foo=bar"
+
+;; Query-string keys without values can be added using `nillable?` option (clojure example)
+(import java.util.concurrent.ThreadLocalRandom)
+(-> (parse "http://example.com")
+    (update :query #(-> %
+                        (merge {(->> (ThreadLocalRandom/current) .nextLong (format "%016x")) nil})
+                        (map->query-string {:nillable? true})))
+    uri
+    str)
+=> "http://example.com?9dc63f4f67ef9ba0"
 
 ;; Instances of URI are printed with a #lambdaisland/uri reader tag. To read
 ;; them back from EDN, use the provided readers.

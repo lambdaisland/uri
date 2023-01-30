@@ -186,3 +186,9 @@
                   uri/query-string->map)]
       (or (and (empty? q) (empty? res)) ;; (= nil {})
           (= q res)))))
+
+(deftest map->query-string-test
+  (is (= "foo" (uri/map->query-string {:foo nil} {:nillable? true})))
+  (is (= "foo&bar" (uri/map->query-string {:foo nil :bar nil} {:nillable? true})))
+  (is (= "foo&bar&foobar=1" (uri/map->query-string {:foo nil :bar nil :foobar 1} {:nillable? true})))
+  (is (= "" (uri/map->query-string {:foo nil} {:nillable? false}))))
