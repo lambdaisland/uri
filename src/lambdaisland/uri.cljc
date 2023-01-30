@@ -214,7 +214,12 @@
   "Convert a map into a query string, consisting of key=value pairs separated by
   `&`. The result is percent-encoded so it is always safe to use. Keys can be
   strings or keywords. If values are collections then this results in multiple
-  entries for the same key. `nil` values are ignored. Values are stringified."
+  entries for the same key. `nil` values are ignored. Values are stringified.
+
+  Takes the following options:
+
+  - `nillable?` whether to return query param key alone when value is nil,
+    defaults to `false` (empty returned)"
   ([m]
    (map->query-string m nil))
   ([m {:keys [nillable?]
