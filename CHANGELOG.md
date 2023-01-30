@@ -2,6 +2,8 @@
 
 ## Added
 
+- Adds `:into` option to define custom `clojure.lang.IPersistentMap` target data structure for `lambdaisland.uri/query-string->map`
+
 ## Fixed
 
 ## Changed
