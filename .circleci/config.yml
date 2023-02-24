@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   kaocha: lambdaisland/kaocha@0.0.1
-  clojure: lambdaisland/clojure@0.0.2
+  clojure: lambdaisland/clojure@0.0.8
 
 commands:
   checkout_and_run:
@@ -28,19 +28,19 @@ commands:
 jobs:
   java-17-clojure-1_10:
     executor: clojure/openjdk17
-    steps: [{checkout_and_run: {clojure_version: "1.10.1"}}]
+    steps: [{checkout_and_run: {clojure_version: "1.10.2"}}]
 
   java-11-clojure-1_10:
     executor: clojure/openjdk11
-    steps: [{checkout_and_run: {clojure_version: "1.10.1"}}]
+    steps: [{checkout_and_run: {clojure_version: "1.10.2"}}]
 
   java-9-clojure-1_10:
     executor: clojure/openjdk9
-    steps: [{checkout_and_run: {clojure_version: "1.10.1"}}]
+    steps: [{checkout_and_run: {clojure_version: "1.10.2"}}]
 
   java-8-clojure-1_10:
     executor: clojure/openjdk8
-    steps: [{checkout_and_run: {clojure_version: "1.10.1"}}]
+    steps: [{checkout_and_run: {clojure_version: "1.10.2"}}]
 
   babashka-tests:
     executor: clojure/openjdk8
@@ -50,7 +50,7 @@ jobs:
           command: |
             curl -sLO https://raw.githubusercontent.com/babashka/babashka/master/install
             chmod +x install
-            ./install
+            ./install --version 1.0.168
             bb test:bb
 
 workflows:
