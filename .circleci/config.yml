@@ -50,7 +50,7 @@ jobs:
           command: |
             curl -sLO https://raw.githubusercontent.com/babashka/babashka/master/install
             chmod +x install
-            ./install
+            ./install --version 1.0.168
             bb test:bb
 
 workflows:
