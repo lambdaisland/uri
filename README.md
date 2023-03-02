@@ -123,15 +123,15 @@ supported. As an alternative to `clojure.core/str` you can use
 ``` clojure
 ;; clojure / clojurescript
 (str uri) ;; "https://example.com"
-(uri :domain) ;; "example.com"
+(uri :host) ;; "example.com"
 
 ;; bb
 (str uri) ;; "{:scheme "https", :domain "example.com", :path ...}"
-(uri :domain) ;; nil
+(uri :host) ;; nil
 
 (uri/uri-str uri) ;; "https://example.com"
-(:domain uri) ;; "example.com"
-(get uri :domain) ;; "example.com"
+(:host uri) ;; "example.com"
+(get uri :host) ;; "example.com"
 ```
 
 ## Similar projects
