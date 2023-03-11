@@ -1,4 +1,4 @@
-(ns poke
+(ns repl-sessions.poke
   (:require [lambdaisland.uri :as uri]
             [lambdaisland.uri.normalize :as norm]))
 
@@ -17,3 +17,11 @@
 ;; => #::foo{:baz "bar"}
 
 ;; => #:foo{:baz "bar"}
+
+(let [{:keys [scheme host port]} (uri/uri "https://foo.bar:8080")]
+  )
+
+(:query (uri/uri "http://example.com?hello"))
+
+(uri/map->query-string {:foo "", :bar nil})
+;; => "foo="
