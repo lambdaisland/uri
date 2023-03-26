@@ -4,10 +4,12 @@
             [lambdaisland.uri.normalize :as normalize])
   #?(:clj (:import clojure.lang.IFn)))
 
-(def uri-regex #?(:clj #"\A(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)?(\?([^#]*))?(#(.*))?\z"
-                  :cljs #"^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)?(\?([^#]*))?(#(.*))?$"))
-(def authority-regex #?(:clj #"\A(([^:]*)(:(.*))?@)?([^:]*)(:(\d*))?\z"
-                        :cljs #"^(([^:]*)(:(.*))?@)?([^:]*)(:(\d*))?$"))
+;; this regular expression is take from google clojure library
+(def uri-regex #?(:clj #"\A(?:([^:/?#.]+):)?(?:\/\/(?:([^\\/?#]*)@)?([^\\/?#]*?)(?::([0-9]+))?(?=[\\/?#]|$))?([^?#]+)?(?:\?([^#]*))?(?:#([\s\S]*))?\z"
+                  :cljs #"^(?:([^:/?#.]+):)?(?:\/\/(?:([^\\/?#]*)@)?([^\\/?#]*?)(?::([0-9]+))?(?=[\\/?#]|$))?([^?#]+)?(?:\?([^#]*))?(?:#([\s\S]*))?$"))
+
+(def user-info-regex #?(:clj #"\A(([^:]*)(:(.*))?)?\z"
+                        :cljs #"^(([^:]*)(:(.*))?)?$"))
 
 (defn- authority-string  [user password host port]
   (when host
@@ -43,22 +45,22 @@
 
 (defn- match-uri [uri]
   (let [matches (re-matches uri-regex uri)
-        [_ _ scheme _ authority path _ query _ fragment] matches]
-    [scheme authority (when (seq path) path) query fragment]))
+       [_ scheme user-info host port path query fragment] matches]
+    [scheme user-info host port (when (seq path) path) query fragment]))
 
-(defn- match-authority [authority]
-  (let [matches (re-matches authority-regex authority)
-        [_ _ user _ password host _ port] matches]
-    [user password host port]))
+(defn- match-user-info [user-info]
+  (let [matches (re-matches user-info-regex user-info)
+        [_ _ user _ password] matches]
+    [user password]))
 
 (defn parse
   "Parse a URI string into a lambadisland.uri.URI record."
   [uri]
-  (let [[scheme authority path query fragment] (match-uri uri)]
+  (let [[scheme authority host port path query fragment] (match-uri uri)]
     (if authority
-      (let [[user password host port] (match-authority authority)]
+      (let [[user password] (match-user-info authority)]
         (URI. scheme user password host port path query fragment))
-      (URI. scheme nil nil nil nil path query fragment))))
+      (URI. scheme nil nil host port path query fragment))))
 
 (defn uri
   "Turn the given value into a lambdaisland.uri.URI record, if it isn't one
