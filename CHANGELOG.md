@@ -1,10 +1,9 @@
 # Unreleased
 
-## Added
-
 ## Fixed
 
-## Changed
+- Treat a backslash in the authority section as a delimiter which starts the
+  path section (CVE-2023-28628, with thanks to @luigigubello for the report)
 
 # 1.13.95 (2022-01-28 / a9cbeff)
 
