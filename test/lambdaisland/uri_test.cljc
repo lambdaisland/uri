@@ -181,8 +181,28 @@
 
 (tc/defspec query-string-round-trips 100
   (prop/for-all [q query-map-gen]
-    (let [res (-> q
-                  uri/map->query-string
-                  uri/query-string->map)]
-      (or (and (empty? q) (empty? res)) ;; (= nil {})
-          (= q res)))))
+                (let [res (-> q
+                              uri/map->query-string
+                              uri/query-string->map)]
+                  (or (and (empty? q) (empty? res)) ;; (= nil {})
+                      (= q res)))))
+
+(deftest backslash-in-authority-test
+  ;; A backslash is not technically a valid character in a URI (see RFC 3986
+  ;; section 2), and so should always be percent encoded. The problem is that
+  ;; user-facing software (e.g. browsers) rarely if ever rejects invalid
+  ;; URIs/URLs, leading to ad-hoc rules about how to map the set of invalid URIs
+  ;; to valid URIs. All modern browsers now interpret a backslash as a forward
+  ;; slash, which changes the interpretation of the URI. For this test (and
+  ;; accompanying patch) we only care about the specific case of a backslash
+  ;; appearing inside the authority section, since this authority or _origin_ is
+  ;; regularly used to inform security policies, e.g. to check if code served
+  ;; from a certain origin has access to resources with the same origin. In this
+  ;; case we partially mimic what browsers do, by treating the backslash as a
+  ;; delimiter which starts the path section, even though we don't replace it
+  ;; with a forward slash, but leave it as-is in the parsed result.
+  (let [{:keys [host path user]}
+        (uri/uri "https://example.com\\@gaiwan.co")]
+    (is (= "example.com" host))
+    (is (= nil user))
+    (is (= "\\@gaiwan.co" path))))
