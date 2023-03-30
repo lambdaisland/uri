@@ -141,6 +141,8 @@
   - `:keywordize?` whether to turn return keys as keywords. Defaults to `true`.
   - `:multikeys` how to handle the same key occuring multiple times, defaults to
     `:duplicates`
+  - `:into` provide `clojure.lang.IPersistentMap` to define target data structure,
+    defaults to `clojure.lang.PersistentHashMap`
 
   The possible values for `:multikeys` are
 
@@ -152,9 +154,10 @@
     string otherwise"
   ([q]
    (query-string->map q nil))
-  ([q {:keys [multikeys keywordize?]
+  ([q {:keys [multikeys keywordize? into]
        :or {multikeys :duplicates
-            keywordize? true}}]
+            keywordize? true
+            into {}}}]
    (when (not (str/blank? q))
      (->> (str/split q #"&")
           (map decode-param-pair)
@@ -174,7 +177,7 @@
                      (update m k conj v)
                      (assoc m k [(m k) v]))
                    (assoc m k v)))))
-           {})))))
+           into)))))
 
 (defn query-map
   "Return the query section of a URI as a map. Will coerce its argument
