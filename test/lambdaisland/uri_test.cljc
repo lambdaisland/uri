@@ -6,24 +6,22 @@
             [clojure.test.check.generators :as gen]
             [clojure.test.check.properties :as prop]
             [clojure.test.check.clojure-test :as tc]
-            [clojure.string :as str])
-  #?(:clj (:import lambdaisland.uri.URI)))
+            [clojure.string :as str]))
 
 (deftest parsing
   (testing "happy path"
     (are [x y] (= y (uri/parse x))
       "http://user:password@example.com:8080/path?query=value#fragment"
-      (uri/URI. "http" "user" "password" "example.com" "8080" "/path" "query=value" "fragment")
+      (uri/->URI "http" "user" "password" "example.com" "8080" "/path" "query=value" "fragment")
 
       "/happy/path"
-      (uri/URI. nil nil nil nil nil "/happy/path" nil nil)
+      (uri/->URI nil nil nil nil nil "/happy/path" nil nil)
 
       "relative/path"
-      (uri/URI. nil nil nil nil nil "relative/path" nil nil)
+      (uri/->URI nil nil nil nil nil "relative/path" nil nil)
 
       "http://example.com"
-      (uri/URI. "http" nil nil "example.com" nil nil nil nil)
-      )))
+      (uri/->URI "http" nil nil "example.com" nil nil nil nil))))
 
 (deftest joining
   (are [x y] (= (uri/parse y) (apply uri/join (map uri/parse x)))
