@@ -49,13 +49,13 @@ To install, add the following dependency to your project or build file:
 deps.edn:
 
 ``` clojure
-lambdaisland/uri {:mvn/version "1.14.120"}
+lambdaisland/uri {:mvn/version "1.15.125"}
 ```
 
 project.clj
 
 ``` clojure
-[lambdaisland/uri "1.14.120"]
+[lambdaisland/uri "1.15.125"]
 ```
 
 ## Usage
