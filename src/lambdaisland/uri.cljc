@@ -130,7 +130,7 @@
 ;; Query strings
 
 (defn- decode-param-pair [param]
-  (let [[k v] (str/split param #"=")]
+  (let [[k v] (str/split param #"=" 2)]
     [(if k (normalize/percent-decode k) "")
      (if v (normalize/percent-decode (str/replace v #"\+" " ")) "")]))
 
