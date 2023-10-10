@@ -4,7 +4,7 @@
 
 ## Fixed
 
-- Do not truncate value of a query parameter pain when it contains a nested `=`   
+- Do not truncate value of a query parameter pair when contains nested `=` characters   
 
 ## Changed
 
