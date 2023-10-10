@@ -4,6 +4,8 @@
 
 ## Fixed
 
+- Do not truncate value of a query parameter pair when contains nested `=` characters   
+
 ## Changed
 
 # 1.15.125 (2023-03-30 / 5550226)
