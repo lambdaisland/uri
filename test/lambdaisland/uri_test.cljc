@@ -21,7 +21,10 @@
       (uri/->URI nil nil nil nil nil "relative/path" nil nil)
 
       "http://example.com"
-      (uri/->URI "http" nil nil "example.com" nil nil nil nil))))
+      (uri/->URI "http" nil nil "example.com" nil nil nil nil)
+
+      "  http://example.com/path  "
+      (uri/->URI "http" nil nil "example.com" nil "/path" nil nil))))
 
 (deftest joining
   (are [x y] (= (uri/parse y) (apply uri/join (map uri/parse x)))

@@ -54,7 +54,8 @@
 (defn parse
   "Parse a URI string into a lambadisland.uri.URI record."
   [uri]
-  (let [[scheme authority path query fragment] (match-uri uri)]
+  (let [trimmed-uri (str/trim uri)
+        [scheme authority path query fragment] (match-uri trimmed-uri)]
     (if authority
       (let [[user password host port] (match-authority authority)]
         (URI. scheme user password host port path query fragment))
