@@ -133,6 +133,15 @@
   (let [[k v] (str/split param #"=" 2)]
     [(if k (normalize/percent-decode k) "")
      (if v (normalize/percent-decode (str/replace v #"\+" " ")) "")]))
+(defn query-string->param-pairs
+  ""
+  ([q]
+   (query-string->param-pairs q nil))
+  ([q {:keys [keywordize?]}]
+   (when-not (str/blank? q)
+     (cond->> (str/split q #"&")
+              true (map decode-param-pair)
+              keywordize? (map (fn [[k v]] [(keyword k) v]))))))
 
 (defn query-string->map
   "Parse a query string, consisting of key=value pairs, separated by \"&\". Takes
@@ -154,31 +163,48 @@
     string otherwise"
   ([q]
    (query-string->map q nil))
-  ([q {:keys [multikeys keywordize? into]
+  ([q {:keys [multikeys into]
        :or {multikeys :duplicates
-            keywordize? true
-            into {}}}]
-   (if (str/blank? q)
-     into
-     (->> (str/split q #"&")
-          (map decode-param-pair)
-          (reduce
-           (fn [m [k v]]
-             (let [k (if keywordize? (keyword k) k)]
-               (case multikeys
-                 :never
-                 (assoc m k v)
-                 :always
-                 (if (contains? m k)
-                   (update m k conj v)
-                   (assoc m k [v]))
-                 :duplicates
-                 (if (contains? m k)
-                   (if (vector? (m k))
-                     (update m k conj v)
-                     (assoc m k [(m k) v]))
-                   (assoc m k v)))))
-           into)))))
+            into {}}
+       :as params}]
+   (cond
+     (not (map? into)) (throw (ex-info "into should pass map? pred" {:into into}))
+     (nil? q) into
+
+     :else
+     (reduce
+       (fn [m [k v]]
+         (case multikeys
+           :never
+           (assoc m k v)
+           :always
+           (if (contains? m k)
+             (update m k conj v)
+             (assoc m k [v]))
+           :duplicates
+           (if (contains? m k)
+             (if (vector? (m k))
+               (update m k conj v)
+               (assoc m k [(m k) v]))
+             (assoc m k v))))
+       into
+       (query-string->param-pairs q params)))))
+
+(defn query-string->coll
+  "Parse a query string, consisting of key=value pairs, separated by \"&\". Takes
+  the following options:
+
+  - `:keywordize?` whether to turn return keys as keywords. Defaults to `true`.
+  - `:into` define target data accumulator"
+  ([q]
+   (query-string->coll q nil))
+  ([q {acc :into
+       :or {acc []}
+       :as params}]
+   (cond
+     (not (sequential? acc)) (throw (ex-info "into should pass sequential? pred" {:into into}))
+     (nil? q) into
+     :else (into acc (query-string->param-pairs q params)))))
 
 (defn query-map
   "Return the query section of a URI as a map. Will coerce its argument
@@ -187,6 +213,14 @@
    (query-map uri nil))
   ([u opts]
    (query-string->map (:query (uri u)) opts)))
+
+(defn query-coll
+  "Return the query section of a URI as a map. Will coerce its argument
+  with [[uri]]. Takes an options map, see [[query-string->map]] for options."
+  ([uri]
+   (query-coll uri nil))
+  ([u opts]
+   (query-string->coll (:query (uri u)) opts)))
 
 (defn query-encode
   "Percent encoding for query strings. Will percent-encode values that are
@@ -230,6 +264,15 @@
                      (map (partial encode-param-pair k) v)
                      :else
                      [(encode-param-pair k v)])))
+         (interpose "&")
+         (apply str))))
+
+(defn coll->query-string
+  ""
+  [coll]
+  (when (seq coll)
+    (->> coll
+         (map (fn [[k v]] (encode-param-pair k v)))
          (interpose "&")
          (apply str))))
 
