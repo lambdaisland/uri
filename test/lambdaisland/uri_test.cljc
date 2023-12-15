@@ -144,7 +144,10 @@
 
   (is (= [:a :b :c :d :e :f :g :h :i]
          (keys (uri/query-map "http://example.com?a=1&b=2&c=3&d=4&e=5&f=6&g=7&h=8&i=9"
-                              {:into (sorted-map)})))))
+                              {:into (sorted-map)}))))
+
+  (is (= {}
+         (uri/query-map "http://example.com/path"))))
 
 (deftest assoc-query-test
   (is (= (uri/uri "http://example.com?foo=baq&aaa=bbb&hello=world")

@@ -16,3 +16,5 @@ node_modules
 .cpcache
 package-lock.json
 .store
+.idea/
+.clj-kondo/
