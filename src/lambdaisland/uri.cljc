@@ -158,7 +158,8 @@
        :or {multikeys :duplicates
             keywordize? true
             into {}}}]
-   (when (not (str/blank? q))
+   (if (str/blank? q)
+     into
      (->> (str/split q #"&")
           (map decode-param-pair)
           (reduce
