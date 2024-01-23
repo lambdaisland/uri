@@ -180,11 +180,11 @@
              (uri/assoc-query* {:a "a b"})
              uri/query-map))))
 
-(deftest query-string->seq-test
+(deftest query-string->vec-test
   (are [query-string expected]
-    (= expected (uri/query-string->seq query-string))
-    nil nil
-    "" nil
+    (= expected (uri/query-string->vec query-string))
+    nil []
+    "" []
     "a=1&b=2&a=3" [["a" "1"] ["b" "2"] ["a" "3"]]
     "a=1&b=" [["a" "1"] ["b" ""]]))
 
@@ -195,6 +195,12 @@
     [] ""
     [["a" "1"] ["b" "2"] ["a" "3"]] "a=1&b=2&a=3"
     [["a" "1"] ["b" ""]] "a=1&b="))
+
+(deftest query-string-add-param-test
+  (let [original-query (uri/query-string->vec "c=3&d=4")
+        params-to-append (sort {:b 2 :a 1}) ;; ([:a 1] [:b 2])
+        modified-query (into original-query params-to-append)]
+    (is (= "c=3&d=4&a=1&b=2" (uri/seq->query-string modified-query)))))
 
 (deftest uri-predicate-test
   (is (true? (uri/uri? (uri/uri "/foo")))))

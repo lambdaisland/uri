@@ -180,14 +180,14 @@
                    (assoc m k v)))))
            into)))))
 
-(defn query-string->seq
-  "Parse a query string, consisting of key=value pairs, separated by `\"&\"`.
-   Return a seq of `[key value]` pairs, in the exact order they occur in the
-  query string. Keys and values are strings. Returns `nil` if `q` is blank or
-  `nil`."
+(defn query-string->vec
+  "Parse a query string, consisting of key=value pairs, separated by \"&\".
+   Return vector of positional [key value] pairs, in the exact order they occur in the
+   query string. Keys and values are strings. Returns empty vector if q is empty string or nil."
   [q]
-  (when-not (str/blank? q)
-    (map decode-param-pair (str/split q #"&"))))
+  (if (str/blank? q)
+    []
+    (mapv decode-param-pair (str/split q #"&"))))
 
 (defn query-map
   "Return the query section of a URI as a map. Will coerce its argument
