@@ -2,12 +2,8 @@
 
 ## Added
 
-- Added functions for dealing with query strings as positional collections: `query-string->seq`,
-  `seq->query-string`.
-
-## Fixed
-
-## Changed
+- Added functions for dealing with query strings as positional collections:
+  `query-string->seq`, `seq->query-string`.
 
 # 1.16.134 (2023-10-10 / c0f16d8)
 
