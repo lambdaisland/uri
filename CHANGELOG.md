@@ -2,6 +2,9 @@
 
 ## Added
 
+- Added functions for dealing with query strings as positional collections: `query-string->seq`,
+  `seq->query-string`.
+
 ## Fixed
 
 ## Changed

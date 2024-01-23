@@ -180,6 +180,16 @@
                    (assoc m k v)))))
            into)))))
 
+(defn query-string->seq
+  "Parse a query string, consisting of key=value pairs, separated by \"&\".
+   Return vector of positional [key value] tuples. Keys and values are strings.
+   Returns empty vector if q is empty string or nil."
+  [q]
+  (if (str/blank? q)
+    []
+    (->> (str/split q #"&")
+         (mapv decode-param-pair))))
+
 (defn query-map
   "Return the query section of a URI as a map. Will coerce its argument
   with [[uri]]. Takes an options map, see [[query-string->map]] for options."
@@ -232,6 +242,17 @@
                      [(encode-param-pair k v)])))
          (interpose "&")
          (apply str))))
+
+(defn seq->query-string
+  "Convert a positional collection of [key value] tuples into a query string, consisting of key=value pairs
+   separated by `&`. The result is percent-encoded, so it is always safe to use.
+   Keys can be strings or keywords. Tuple with `nil` value adds entry like `key=` to query string.
+   Values are stringified."
+  [coll]
+  (some->> (seq coll)
+           (map (fn [[k v]] (encode-param-pair k v)))
+           (interpose "&")
+           (apply str)))
 
 (defn assoc-query*
   "Add additional query parameters to a URI. Takes a URI (or coercible to URI) and
