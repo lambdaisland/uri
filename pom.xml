@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>lambdaisland</groupId>
   <artifactId>uri</artifactId>
-  <version>1.16.134</version>
+  <version>1.17.141</version>
   <name>uri</name>
   <description>A pure Clojure/ClojureScript URI library.</description>
   <url>https://github.com/lambdaisland/uri</url>
@@ -25,7 +25,7 @@
     <url>https://github.com/lambdaisland/uri</url>
     <connection>scm:git:git://github.com/lambdaisland/uri.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/lambdaisland/uri.git</developerConnection>
-    <tag>ccf78160ade8b97aa7e62615b5167190e4a29972</tag>
+    <tag>813b5a72ecea16d6fab73fcd5c2ca1c543962ed8</tag>
   </scm>
   <dependencies>
     <dependency>
@@ -58,7 +58,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <git-revision>ccf78160ade8b97aa7e62615b5167190e4a29972</git-revision>
+              <git-revision>813b5a72ecea16d6fab73fcd5c2ca1c543962ed8</git-revision>
             </manifestEntries>
           </archive>
         </configuration>
