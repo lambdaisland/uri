@@ -2,19 +2,21 @@
 
 ## Changed
 
-# 1.17.141 (2024-01-23 / 96249d9)
-
 - `query-map` / `query-string->map`: when called with an `:into` collection, and
   no query params are present, then return the `:into` collection, rather than
   `nil`. If no explicit `:into` collection is provided, then retain the existing
   behavior of returning `nil`.
 
-# 1.16.134 (2023-10-10 / c0f16d8)
+# 1.17.141 (2024-01-23 / 96249d9)
 
 ## Added
 
 - Added functions for dealing with query strings as positional collections:
   `query-string->seq`, `seq->query-string`.
+
+## Changed
+
+- `query-map` : return `:into` value on blank input
 
 # 1.16.134 (2023-10-10 / c0f16d8)
 
