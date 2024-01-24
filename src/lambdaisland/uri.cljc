@@ -156,8 +156,7 @@
    (query-string->map q nil))
   ([q {:keys [multikeys keywordize? into]
        :or {multikeys :duplicates
-            keywordize? true
-            into {}}}]
+            keywordize? true}}]
    (if (str/blank? q)
      into
      (->> (str/split q #"&")
@@ -178,7 +177,7 @@
                      (update m k conj v)
                      (assoc m k [(m k) v]))
                    (assoc m k v)))))
-           into)))))
+           (or into {}))))))
 
 (defn query-string->seq
   "Parse a query string, consisting of key=value pairs, separated by `\"&\"`.

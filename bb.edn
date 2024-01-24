@@ -1,6 +1,6 @@
 {:deps
  {lambdaisland/open-source {:git/url "https://github.com/lambdaisland/open-source"
-                            :git/sha "99b33741ea499e1c58e5ab6c2b785ba18eca84d2"}
+                            :git/sha "7ce125cbd14888590742da7ab3b6be9bba46fc7a"}
   current/project {:local/root "."}}
 
  :tasks
