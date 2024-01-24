@@ -15,13 +15,9 @@
 
 # 1.16.134 (2023-10-10 / c0f16d8)
 
-## Added
-
 ## Fixed
 
-- Do not truncate value of a query parameter pair when contains nested `=` characters   
-
-## Changed
+- Do not truncate value of a query parameter pair when contains nested `=` characters
 
 # 1.15.125 (2023-03-30 / 5550226)
 
