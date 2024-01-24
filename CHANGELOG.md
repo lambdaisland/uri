@@ -2,9 +2,7 @@
 
 ## Added
 
-## Fixed
-
-## Changed
+- Support ipv6 literals
 
 # 1.18.150 (2024-01-24 / 1e4f0e2)
 
